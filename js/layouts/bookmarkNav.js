@@ -1,66 +1,65 @@
-let navItems = [];
-let sections = [];
-let didInitScroll = false;
+export default function initBookmarkNav() {
+  const navItems = document.querySelectorAll('.bookmark-nav-item');
+  const sections = document.querySelectorAll('section[id]');
 
-const throttle = (func, limit) => {
-  let inThrottle = false;
-  return (...args) => {
-    if (inThrottle) {
-      return;
+  if (!navItems.length || !sections.length) return;
+
+  // Throttle function
+  function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
     }
-    func(...args);
-    inThrottle = true;
-    setTimeout(() => {
-      inThrottle = false;
-    }, limit);
-  };
-};
-
-const setActiveNavItem = () => {
-  if (!navItems.length || !sections.length) {
-    return;
   }
 
-  const fromTop = window.scrollY + 100;
-  let currentSection = null;
+  function setActiveNavItem() {
+    const fromTop = window.scrollY + 100;
+    let currentSection = null;
 
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
 
-    if (fromTop >= sectionTop && fromTop < sectionTop + sectionHeight) {
-      currentSection = section;
-    }
-  });
+      if (fromTop >= sectionTop && fromTop < sectionTop + sectionHeight) {
+        currentSection = section;
+      }
+    });
 
-  navItems.forEach((item) => {
-    item.classList.remove("bg-second-background-color");
-    if (
-      currentSection &&
-      item.getAttribute("data-category") === currentSection.getAttribute("id")
-    ) {
-      item.classList.add("bg-second-background-color");
-    }
-  });
-};
-
-const registerScrollHandler = (signal) => {
-  if (didInitScroll || !signal) {
-    return;
+    navItems.forEach(item => {
+      item.classList.remove('bg-second-background-color');
+      if (currentSection && item.getAttribute('data-category') === currentSection.getAttribute('id')) {
+        item.classList.add('bg-second-background-color');
+      }
+    });
   }
 
-  didInitScroll = true;
-  window.addEventListener("scroll", throttle(setActiveNavItem, 100), { signal });
-};
+  // // Handle click events on nav items
+  // navItems.forEach(item => {
+  //   item.addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     const targetId = item.getAttribute('data-category');
+  //     const targetSection = document.getElementById(targetId);
+  //     if (targetSection) {
+  //       targetSection.scrollIntoView();
+  //     }
+  //   });
+  // });
 
-export default function initBookmarkNav({ signal } = {}) {
-  navItems = Array.from(document.querySelectorAll(".bookmark-nav-item"));
-  sections = Array.from(document.querySelectorAll("section[id]"));
-
-  if (!navItems.length || !sections.length) {
-    return;
-  }
-
-  registerScrollHandler(signal);
+  // Throttle scroll handler to run at most every 100ms
+  window.addEventListener('scroll', throttle(setActiveNavItem, 100));
+  
+  // Initial check
   setActiveNavItem();
 }
+
+try {
+  swup.hooks.on("page:view", initBookmarkNav);
+} catch (e) {}
+
+document.addEventListener("DOMContentLoaded", initBookmarkNav); 

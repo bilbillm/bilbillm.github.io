@@ -1,11 +1,12 @@
-export default function initEssays() {
+// Function to format the dates
+function formatEssayDates() {
   const dateElements = document.querySelectorAll(".essay-date");
 
-  if (!dateElements.length) {
+  if (!dateElements) {
     return;
   }
 
-  dateElements.forEach((element) => {
+  dateElements.forEach(function (element) {
     const rawDate = element.getAttribute("data-date");
     const locale = config.language || "en";
 
@@ -13,3 +14,12 @@ export default function initEssays() {
     element.textContent = formattedDate;
   });
 }
+
+try {
+  swup.hooks.on("page:view", formatEssayDates);
+} catch (e) {
+  console.error(e);
+}
+
+// Initial call for the first page load
+document.addEventListener("DOMContentLoaded", formatEssayDates);
