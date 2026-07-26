@@ -1,0 +1,19 @@
+---
+import { contentUrl, formatDate, getArchiveEntries, getArticles, getFragments } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const [articles, fragments, archive] = await Promise.all([getArticles(), getFragments(), getArchiveEntries()]);
+const entries = [...articles, ...fragments, ...archive].sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout title="时间线" description="按时间浏览文章、断章与档案。" pathname="/timeline/">
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">TIMELINE</p><h1>时间线</h1><p>不同类型的内容放在同一条时间线上，以便看见它们如何互相照亮。</p></header>
+    <ol class="timeline">
+      {entries.map((entry) => <li>
+        <time datetime={entry.data.publishedAt.toISOString()}>{formatDate(entry.data.publishedAt)}</time>
+        <div><h2>{entry.data.title}</h2><p>{entry.data.description}</p><a href={contentUrl(entry)}>阅读</a></div>
+      </li>)}
+    </ol>
+  </div>
+</BaseLayout>

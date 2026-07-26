@@ -1,0 +1,31 @@
+---
+import { CalendarDays, Clock3 } from 'lucide-astro';
+import type { CollectionEntry } from 'astro:content';
+import { contentUrl, formatDate, readingMinutes } from '../lib/content';
+import type { Locale } from '../lib/site';
+import { t } from '../lib/locale';
+import { localizedPath } from '../lib/locale';
+import Counter from './Counter.astro';
+
+type Entry = CollectionEntry<'articles'> | CollectionEntry<'fragments'> | CollectionEntry<'archive'>;
+
+interface Props {
+  entry: Entry;
+  locale: Locale;
+}
+
+const { entry, locale } = Astro.props;
+const isArticle = entry.collection === 'articles';
+---
+
+<header class="page-header page-header--reading reading-header">
+  <p class="page-header__eyebrow">{entry.collection === 'articles' ? t(locale, 'articles') : entry.collection === 'fragments' ? t(locale, 'fragments') : t(locale, 'archive')}</p>
+  <h1>{entry.data.title}</h1>
+  <p>{entry.data.description}</p>
+  <div class="reading-header__meta">
+    <span><CalendarDays aria-hidden="true" size={15} strokeWidth={1.7} /> {t(locale, 'published')} {formatDate(entry.data.publishedAt, locale === 'zh' ? 'zh-CN' : 'en-US')}</span>
+    {isArticle && <span><Clock3 aria-hidden="true" size={15} strokeWidth={1.7} /> {readingMinutes(entry.body ?? '')} {t(locale, 'minutes')}</span>}
+    <Counter locale={locale} path={contentUrl(entry)} variant="entry" />
+  </div>
+  {entry.data.tags.length > 0 && <ul class="tag-list reading-header__tags" aria-label={locale === 'zh' ? '标签' : 'Tags'}>{entry.data.tags.map((tag) => <li><a href={localizedPath(`/tags/${encodeURIComponent(tag)}/`, locale)}>{tag}</a></li>)}</ul>}
+</header>

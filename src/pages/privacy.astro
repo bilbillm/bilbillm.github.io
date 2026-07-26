@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="隐私" description="Anamnesis | 追忆 的隐私说明。" pathname="/privacy/">
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">PRIVACY</p><h1>隐私</h1><p>只说明这个站点实际会做的事，也说明它不会做什么。</p></header>
+    <div class="privacy-list">
+      <section><h2>访问计数</h2><p>当站点配置 Vercount 兼容服务时，页脚和文章元信息可能显示公开访问计数。若浏览器启用 Do Not Track，站点不会加载该计数请求；服务不可用时，页面照常工作且不显示计数。</p></section>
+      <section><h2>外部资源</h2><p>GitHub、Bilibili、Steam 等链接直接在当前标签页打开，离开本站后适用对方的隐私政策。站点不嵌入评论、广告、订阅表单或社交追踪像素。</p></section>
+      <section><h2>本地偏好</h2><p>主题手动选择只保存在浏览器 localStorage，用于在下次访问时保持明暗外观；不会上传到本站。</p></section>
+      <section><h2>联系</h2><p>本页会在站点使用的服务发生实质变化时更新。</p></section>
+    </div>
+  </div>
+</BaseLayout>

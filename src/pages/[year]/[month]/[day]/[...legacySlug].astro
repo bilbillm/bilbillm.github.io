@@ -1,0 +1,17 @@
+---
+import { getLegacyRedirects } from '../../../../lib/legacy';
+
+export async function getStaticPaths() {
+  const redirects = await getLegacyRedirects();
+  return redirects.flatMap(({ from, to }) => {
+    const parts = from.split('/').filter(Boolean);
+    if (parts.length < 4 || !/^\d{4}$/.test(parts[0])) return [];
+    return [{
+      params: { year: parts[0], month: parts[1], day: parts[2], legacySlug: parts.slice(3).join('/') },
+      props: { to }
+    }];
+  });
+}
+
+return Astro.redirect((Astro.props as { to: string }).to, 301);
+---

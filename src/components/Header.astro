@@ -1,0 +1,57 @@
+---
+import { Languages, Menu, Search, X } from 'lucide-astro';
+import { primaryNavigation, utilityNavigation, type Locale, site } from '../lib/site';
+import { localizedPath, t, type TranslationKey } from '../lib/locale';
+import PrismMark from './PrismMark.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+const alternateLocale: Locale = locale === 'zh' ? 'en' : 'zh';
+const displayPath = locale === 'en' && pathname.startsWith('/en') ? pathname.slice(3) || '/' : pathname;
+const labels = (key: TranslationKey) => t(locale, key);
+---
+
+<header class="site-header" data-site-header>
+  <div class="site-header__inner">
+    <a class="brand" href={localizedPath('/', locale)} aria-label={site.name}>
+      <PrismMark compact />
+      <span class="brand__wordmark">Anamnesis <b>|</b> 追忆</span>
+    </a>
+
+    <nav class="site-nav site-nav--desktop" aria-label={locale === 'zh' ? '主导航' : 'Primary navigation'}>
+      {primaryNavigation.map((item) => (
+        <a href={localizedPath(item.href, locale)} aria-current={displayPath.startsWith(item.href) ? 'page' : undefined}>
+          {labels(item.key)}
+        </a>
+      ))}
+    </nav>
+
+    <div class="site-actions">
+      {utilityNavigation.map((item) => (
+        <a class="icon-button site-actions__utility" href={localizedPath(item.href, locale)} aria-label={labels(item.key)} title={labels(item.key)}>
+          {item.key === 'search' ? <Search aria-hidden="true" size={18} strokeWidth={1.7} /> : <span class="utility-word">{labels(item.key)}</span>}
+        </a>
+      ))}
+      <a class="icon-button locale-toggle" href={localizedPath(displayPath, alternateLocale)} aria-label={t(locale, 'language')} title={t(locale, 'language')}>
+        <Languages aria-hidden="true" size={18} strokeWidth={1.7} />
+      </a>
+      <ThemeToggle locale={locale} />
+      <details class="site-menu">
+        <summary class="icon-button" aria-label={t(locale, 'menu')} title={t(locale, 'menu')}>
+          <Menu class="site-menu__open" aria-hidden="true" size={20} strokeWidth={1.7} />
+          <X class="site-menu__close" aria-hidden="true" size={20} strokeWidth={1.7} />
+        </summary>
+        <nav class="site-menu__panel" aria-label={locale === 'zh' ? '移动端导航' : 'Mobile navigation'}>
+          {primaryNavigation.map((item) => <a href={localizedPath(item.href, locale)}>{labels(item.key)}</a>)}
+          <a href={localizedPath('/now/', locale)}>{t(locale, 'now')}</a>
+          <a href={localizedPath('/privacy/', locale)}>{t(locale, 'privacy')}</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

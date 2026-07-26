@@ -1,0 +1,16 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getNowEntries, formatDate } from '../lib/content';
+
+const entries = await getNowEntries();
+const current = entries[0];
+const Content = current ? (await render(current)).Content : undefined;
+---
+
+<BaseLayout title="此刻" description="当前正在进行的事。" pathname="/now/">
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">NOW</p><h1>此刻</h1><p>比时间线更近，也比社交动态更慢。</p></header>
+    {current && Content && <article class="reading-shell prose"><p class="page-header__eyebrow">{formatDate(current.data.publishedAt)}</p><Content /></article>}
+  </div>
+</BaseLayout>

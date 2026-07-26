@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ContentCard from '../../../components/ContentCard.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import { getAllTagEntries } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const entries = await getAllTagEntries();
+  const tags = [...new Set(entries.flatMap((entry) => entry.data.tags))];
+  return tags.map((tag) => ({ params: { tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props as { tag: string };
+const all = await getAllTagEntries();
+const entries = all.filter((entry) => entry.data.tags.includes(tag));
+const contentEntries = entries.filter((entry) => entry.collection !== 'projects');
+const projects = entries.filter((entry) => entry.collection === 'projects');
+---
+
+<BaseLayout title={`Tag: ${tag}`} description={`Entries related to ${tag}.`} pathname={`/en/tags/${tag}/`} canonicalPath={`/tags/${tag}/`} locale="en" noindex>
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">TAG</p><h1>{tag}</h1><p>Writing, fragments, archive records, projects, and current notes share one browsable tag system.</p></header>
+    <p class="original-language">This interface is in English; the entries remain in their original language.</p>
+    {contentEntries.length > 0 && <div class="content-grid">{contentEntries.map((entry) => <ContentCard entry={entry} locale="en" />)}</div>}
+    {projects.length > 0 && <div class="project-grid">{projects.map((project) => <ProjectCard project={project} locale="en" />)}</div>}
+  </div>
+</BaseLayout>

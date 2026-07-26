@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { getArticles } from '../../lib/content';
+
+const articles = await getArticles();
+---
+
+<BaseLayout title="文章" description="路灯下的陌生人的长篇写作。" pathname="/articles/">
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">WRITING</p><h1>文章</h1><p>可以慢慢读完的思考、观察与未经压缩的自我辩论。</p></header>
+    <div class="content-grid">{articles.map((entry) => <ContentCard entry={entry} locale="zh" />)}</div>
+  </div>
+</BaseLayout>

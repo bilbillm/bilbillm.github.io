@@ -1,0 +1,79 @@
+---
+import { X } from 'lucide-astro';
+import type { GalleryImage } from '../lib/media';
+import type { Locale } from '../lib/site';
+
+interface Props {
+  images: GalleryImage[];
+  heading?: string;
+  locale?: Locale;
+}
+
+const { images, heading = '图库' } = Astro.props;
+const locale = Astro.props.locale ?? (Astro.url.pathname.startsWith('/en/') ? 'en' : 'zh');
+const labels = locale === 'zh'
+  ? {
+      view: (title?: string) => `查看${title ?? '图像'}`,
+      close: '关闭图像',
+      dialog: '图像灯箱'
+    }
+  : {
+      view: (title?: string) => `View ${title ?? 'image'}`,
+      close: 'Close image',
+      dialog: 'Image lightbox'
+    };
+---
+
+<section class="media-gallery" aria-labelledby="gallery-heading">
+  <h2 class="sr-only" id="gallery-heading">{heading}</h2>
+  <div class="media-gallery__grid">
+    {images.map((image) => (
+      <figure class="media-gallery__item" style={`--aspect:${image.width}/${image.height}`}>
+        <button
+          class="media-gallery__trigger"
+          type="button"
+          data-lightbox-trigger
+          data-lightbox-src={`${image.src.replace('-960.webp', '-1440.webp')}`}
+          data-lightbox-alt={image.alt}
+          data-lightbox-caption={image.title ?? ''}
+          aria-label={labels.view(image.title)}
+        >
+          <picture>
+            <source type="image/avif" srcset={image.avifSrcset} sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw" />
+            <img src={image.src} srcset={image.srcset} sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw" width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" />
+          </picture>
+        </button>
+        {(image.title || image.description) && <figcaption><strong>{image.title}</strong>{image.description && <span>{image.description}</span>}</figcaption>}
+      </figure>
+    ))}
+  </div>
+</section>
+
+<dialog class="lightbox" data-lightbox aria-label={labels.dialog}>
+  <button class="icon-button lightbox__close" type="button" data-lightbox-close aria-label={labels.close}><X aria-hidden="true" size={22} strokeWidth={1.7} /></button>
+  <figure>
+    <img data-lightbox-image alt="" />
+    <figcaption data-lightbox-caption></figcaption>
+  </figure>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  const image = dialog?.querySelector<HTMLImageElement>('[data-lightbox-image]');
+  const caption = dialog?.querySelector<HTMLElement>('[data-lightbox-caption]');
+
+  document.querySelectorAll<HTMLButtonElement>('[data-lightbox-trigger]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      if (!dialog || !image || !caption) return;
+      image.src = trigger.dataset.lightboxSrc || '';
+      image.alt = trigger.dataset.lightboxAlt || '';
+      caption.textContent = trigger.dataset.lightboxCaption || '';
+      dialog.showModal();
+    });
+  });
+
+  dialog?.querySelector('[data-lightbox-close]')?.addEventListener('click', () => dialog.close());
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+</script>

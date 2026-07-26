@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+import type { Locale } from '../lib/site';
+import { site } from '../lib/site';
+import { canonicalUrl, pageTitle } from '../lib/seo';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  pathname: string;
+  locale?: Locale;
+  canonicalPath?: string;
+  noindex?: boolean;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description = site.description,
+  pathname,
+  locale = 'zh',
+  canonicalPath = pathname,
+  noindex = false,
+  image = '/media/hero/chen-xiangwan-dusk-hero-fallback.png',
+  type = 'website'
+} = Astro.props;
+const canonical = canonicalUrl(canonicalPath);
+const imageUrl = canonicalUrl(image);
+const alternatePath = locale === 'zh' ? `/en${pathname === '/' ? '/' : pathname}` : pathname.replace(/^\/en/, '') || '/';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': type === 'article' ? 'BlogPosting' : 'WebSite',
+  name: title ?? site.name,
+  headline: title ?? site.name,
+  url: canonical,
+  description,
+  inLanguage: locale === 'zh' ? 'zh-CN' : 'en',
+  author: { '@type': 'Person', name: site.author },
+  publisher: { '@type': 'Person', name: site.author }
+};
+---
+
+<!doctype html>
+<html lang={locale === 'zh' ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale === 'zh' ? 'en' : 'zh-CN'} href={canonicalUrl(alternatePath)} />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} RSS`} href="/rss.xml" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle(title)} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle(title)} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem('anamnesis-theme');
+        const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <title>{pageTitle(title)}</title>
+  </head>
+  <body data-pagefind-ignore={locale === 'en' || noindex ? true : undefined}>
+    <a class="skip-link" href="#main-content">{locale === 'zh' ? '跳至主要内容' : 'Skip to content'}</a>
+    <Header locale={locale} pathname={pathname} />
+    <main id="main-content" data-pagefind-body={locale === 'zh' && !noindex ? true : undefined} data-pagefind-ignore={locale === 'en' || noindex ? true : undefined}><slot /></main>
+    <Footer locale={locale} />
+  </body>
+</html>

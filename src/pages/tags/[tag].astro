@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getAllTagEntries } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const entries = await getAllTagEntries();
+  const tags = [...new Set(entries.flatMap((entry) => entry.data.tags))];
+  return tags.map((tag) => ({ params: { tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props as { tag: string };
+const all = await getAllTagEntries();
+const entries = all.filter((entry) => entry.data.tags.includes(tag));
+const contentEntries = entries.filter((entry) => entry.collection !== 'projects');
+const projects = entries.filter((entry) => entry.collection === 'projects');
+---
+
+<BaseLayout title={`标签：${tag}`} description={`与 ${tag} 相关的内容。`} pathname={`/tags/${tag}/`}>
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">TAG</p><h1>{tag}</h1><p>文章、断章、档案和项目使用同一组可浏览标签。</p></header>
+    {contentEntries.length > 0 && <div class="content-grid">{contentEntries.map((entry) => <ContentCard entry={entry} locale="zh" />)}</div>}
+    {projects.length > 0 && <div class="project-grid">{projects.map((project) => <ProjectCard project={project} locale="zh" />)}</div>}
+  </div>
+</BaseLayout>

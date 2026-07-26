@@ -1,0 +1,21 @@
+---
+import { ArrowDown } from 'lucide-astro';
+import { site, type Locale } from '../lib/site';
+import { t } from '../lib/locale';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'zh' } = Astro.props;
+---
+
+<section class="hero" aria-labelledby="home-title">
+  <img class="hero__image" src="/media/hero/chen-xiangwan-dusk-hero-fallback.png" alt={locale === 'zh' ? '黄昏城市屋顶上的两道远处身影。' : 'Two distant figures on a city rooftop at dusk.'} width="1672" height="941" fetchpriority="high" />
+  <div class="hero__inner">
+    <p class="hero__eyebrow">{locale === 'zh' ? '个人数字花园 / 公开档案' : 'Personal digital garden / Public archive'}</p>
+    <h1 id="home-title">{site.name}</h1>
+    <p class="hero__lede">{site.heroLine}</p>
+    <a class="hero__anchor" href="#now"><ArrowDown aria-hidden="true" size={16} strokeWidth={1.7} /> {t(locale, 'now')}</a>
+  </div>
+</section>

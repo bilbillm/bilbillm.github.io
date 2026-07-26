@@ -1,0 +1,33 @@
+---
+import { Github, MonitorPlay, Tv } from 'lucide-astro';
+import type { Locale } from '../lib/site';
+import { site } from '../lib/site';
+import { localizedPath, t } from '../lib/locale';
+import PrismMark from './PrismMark.astro';
+import Counter from './Counter.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__identity">
+      <a class="brand" href={localizedPath('/', locale)}>
+        <PrismMark compact />
+        <span>Anamnesis | 追忆</span>
+      </a>
+      <p>{site.author}</p>
+    </div>
+    <div class="site-footer__links">
+      <a href={site.social.github} aria-label="GitHub"><Github aria-hidden="true" size={18} strokeWidth={1.7} /> GitHub</a>
+      <a href={site.social.bilibili} aria-label="Bilibili"><Tv aria-hidden="true" size={18} strokeWidth={1.7} /> Bilibili</a>
+      <a href={site.social.steam} aria-label="Steam"><MonitorPlay aria-hidden="true" size={18} strokeWidth={1.7} /> Steam</a>
+      <a href={localizedPath('/privacy/', locale)}>{t(locale, 'privacy')}</a>
+    </div>
+    <Counter locale={locale} />
+  </div>
+</footer>

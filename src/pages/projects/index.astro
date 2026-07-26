@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../lib/content';
+
+const projects = await getProjects();
+---
+
+<BaseLayout title="项目" description="正在维护或曾经完成的公开项目。" pathname="/projects/">
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">PROJECTS</p><h1>项目</h1><p>每一项都指向可访问的仓库或演示，而不是停在展示卡片里。</p></header>
+    <div class="project-grid">{projects.map((project) => <ProjectCard project={project} locale="zh" />)}</div>
+  </div>
+</BaseLayout>

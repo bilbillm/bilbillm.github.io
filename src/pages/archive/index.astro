@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getArchiveEntries, formatDate } from '../../lib/content';
+import { t } from '../../lib/locale';
+
+const entries = await getArchiveEntries();
+---
+
+<BaseLayout title="档案" description="陈向晚的公开编辑档案。" pathname="/archive/">
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">PUBLIC ARCHIVE</p><h1>档案</h1><p>陈向晚不是作者。这是一组经过编辑的公开人物档案，保留角色、场景、物件和未寄出切片。</p></header>
+    <p class="archive-disclosure">{t('zh', 'archiveDisclosure')}</p>
+    <div class="archive-list">
+      {entries.map((entry) => <article>
+        <img src={entry.data.cover ?? '/media/archive/chen-xiangwan-character-sheet.webp'} alt="陈向晚档案图像。" width="240" height="160" loading="lazy" />
+        <div><time datetime={entry.data.publishedAt.toISOString()}>{formatDate(entry.data.publishedAt)}</time><h2>{entry.data.title}</h2><p>{entry.data.description}</p></div>
+        <a href={`/archive/${entry.id}/`}>打开</a>
+      </article>)}
+    </div>
+  </div>
+</BaseLayout>

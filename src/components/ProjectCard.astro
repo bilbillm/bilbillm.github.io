@@ -1,0 +1,37 @@
+---
+import { ArrowUpRight, Github } from 'lucide-astro';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../lib/site';
+import { localizedPath } from '../lib/locale';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  locale: Locale;
+}
+
+const { project, locale } = Astro.props;
+const primaryLink = project.data.repository ?? project.data.demo;
+const status = {
+  active: locale === 'zh' ? '持续维护' : 'Active',
+  archived: locale === 'zh' ? '归档' : 'Archived',
+  experimental: locale === 'zh' ? '实验中' : 'Experimental'
+}[project.data.status];
+---
+
+<article class="project-card">
+  <div>
+    <div class="project-card__top">
+      <span class="project-card__status">{status}</span>
+      <span>{project.data.year}</span>
+    </div>
+    <h3>{project.data.title}</h3>
+    <p>{project.data.description}</p>
+  </div>
+  <div>
+    <ul class="tag-list" aria-label={locale === 'zh' ? '项目标签' : 'Project tags'}>{project.data.tags.map((tag) => <li><a href={localizedPath(`/tags/${encodeURIComponent(tag)}/`, locale)}>{tag}</a></li>)}</ul>
+    {primaryLink && <div class="project-card__links">
+      <a href={primaryLink}><Github aria-hidden="true" size={16} strokeWidth={1.7} /> {locale === 'zh' ? '查看项目' : 'View project'} <ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.7} /></a>
+      {project.data.demo && project.data.demo !== primaryLink && <a href={project.data.demo}>{locale === 'zh' ? '演示' : 'Demo'} <ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.7} /></a>}
+    </div>}
+  </div>
+</article>

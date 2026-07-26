@@ -1,0 +1,7 @@
+---
+export function getStaticPaths() {
+  return [{ params: { year: '2026' } }];
+}
+
+return Astro.redirect('/timeline/', 301);
+---

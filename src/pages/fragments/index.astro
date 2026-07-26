@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { getFragments } from '../../lib/content';
+
+const fragments = await getFragments();
+---
+
+<BaseLayout title="断章" description="独立、可链接的图像、句子与短笔记。" pathname="/fragments/">
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">FRAGMENTS</p><h1>断章</h1><p>一些不必被解释为完整文章的东西，依然值得被保留。</p></header>
+    <div class="content-grid">{fragments.map((entry) => <ContentCard entry={entry} locale="zh" />)}</div>
+  </div>
+</BaseLayout>

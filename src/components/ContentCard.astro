@@ -1,0 +1,38 @@
+---
+import { ArrowUpRight } from 'lucide-astro';
+import type { CollectionEntry } from 'astro:content';
+import { contentUrl, formatDate } from '../lib/content';
+import type { Locale } from '../lib/site';
+import { localizedPath } from '../lib/locale';
+
+type Entry = CollectionEntry<'articles'> | CollectionEntry<'fragments'> | CollectionEntry<'archive'> | CollectionEntry<'now'>;
+
+interface Props {
+  entry: Entry;
+  locale: Locale;
+  compact?: boolean;
+}
+
+const { entry, locale, compact = false } = Astro.props;
+const href = localizedPath(contentUrl(entry), locale);
+const typeLabel = entry.collection === 'articles'
+  ? locale === 'zh' ? '文章' : 'Writing'
+  : entry.collection === 'archive'
+    ? locale === 'zh' ? '档案' : 'Archive'
+    : entry.collection === 'now'
+      ? locale === 'zh' ? '此刻' : 'Now'
+      : locale === 'zh' ? '断章' : 'Fragment';
+---
+
+<article class:list={['content-card', { 'content-card--compact': compact }]}>
+  <a class="content-card__main" href={href}>
+    <div class="content-card__meta">
+      <span>{typeLabel}</span>
+      <time datetime={entry.data.publishedAt.toISOString()}>{formatDate(entry.data.publishedAt, locale === 'zh' ? 'zh-CN' : 'en-US')}</time>
+    </div>
+    <h3>{entry.data.title}</h3>
+    <p>{entry.data.description}</p>
+    <span class="content-card__arrow" aria-hidden="true"><ArrowUpRight size={18} strokeWidth={1.7} /></span>
+  </a>
+  {entry.data.tags.length > 0 && <ul class="tag-list" aria-label={locale === 'zh' ? '标签' : 'Tags'}>{entry.data.tags.slice(0, 3).map((tag) => <li><a href={localizedPath(`/tags/${encodeURIComponent(tag)}/`, locale)}>{tag}</a></li>)}</ul>}
+</article>

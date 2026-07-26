@@ -1,0 +1,77 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/HomeHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ContentCard from '../components/ContentCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getArchiveEntries, getArticles, getFragments, getNowEntries, getProjects } from '../lib/content';
+import { t } from '../lib/locale';
+
+const [articles, fragments, archiveEntries, projects, nowEntries] = await Promise.all([
+  getArticles(),
+  getFragments(),
+  getArchiveEntries(),
+  getProjects(),
+  getNowEntries()
+]);
+const currentNow = nowEntries[0];
+const NowContent = currentNow ? (await render(currentNow)).Content : undefined;
+const archiveFeature = archiveEntries.find((entry) => entry.data.featured) ?? archiveEntries[0];
+---
+
+<BaseLayout pathname="/">
+  <HomeHero />
+
+  <section class="home-section home-section--now" id="now" aria-labelledby="now-title">
+    <div class="home-section__inner">
+      <SectionHeading id="now-title" index="01" title={t('zh', 'now')} description="正在发生的事，保持短、可变，也不必完整。" href="/now/" locale="zh" />
+      {currentNow && NowContent && <div class="now-panel">
+        <div class="now-panel__copy"><NowContent /></div>
+        <aside class="now-panel__meta" aria-label="Now 元信息">
+          <p>{currentNow.data.description}</p>
+          <ul class="tag-list">{currentNow.data.tags.map((tag) => <li><a href={`/tags/${encodeURIComponent(tag)}/`}>{tag}</a></li>)}</ul>
+        </aside>
+      </div>}
+    </div>
+  </section>
+
+  {archiveFeature && <section class="home-section home-section--archive" aria-labelledby="archive-title">
+    <div class="home-section__inner">
+      <SectionHeading id="archive-title" index="02" title={t('zh', 'archive')} description="陈向晚的公开编辑档案：人物、场景、物件与未寄出的片段。" href="/archive/" locale="zh" />
+      <article class="archive-feature">
+        <a class="archive-feature__visual" href={`/archive/${archiveFeature.id}/`}>
+          <img src={archiveFeature.data.cover ?? '/media/archive/chen-xiangwan-character-sheet.webp'} alt="陈向晚档案视觉材料。" width="1672" height="941" loading="lazy" />
+        </a>
+        <div class="archive-feature__copy">
+          <p class="archive-feature__label">{archiveFeature.data.kind === 'dossier' ? '主档案' : '档案条目'}</p>
+          <h3>{archiveFeature.data.title}</h3>
+          <p>{archiveFeature.data.description}</p>
+          <a class="text-link" href={`/archive/${archiveFeature.id}/`}>进入档案</a>
+          <p class="archive-disclosure">{t('zh', 'archiveDisclosure')}</p>
+        </div>
+      </article>
+    </div>
+  </section>}
+
+  <section class="home-section" aria-labelledby="articles-title">
+    <div class="home-section__inner">
+      <SectionHeading id="articles-title" index="03" title={t('zh', 'articles')} description="缓慢展开的思考、记录与还没有结论的论证。" href="/articles/" locale="zh" />
+      <div class="content-grid">{articles.slice(0, 3).map((entry) => <ContentCard entry={entry} locale="zh" />)}</div>
+    </div>
+  </section>
+
+  <section class="home-section home-section--fragments" aria-labelledby="fragments-title">
+    <div class="home-section__inner">
+      <SectionHeading id="fragments-title" index="04" title={t('zh', 'fragments')} description="不必长成文章的图像、句子、片刻与残响。" href="/fragments/" locale="zh" />
+      <div class="content-grid">{fragments.slice(0, 3).map((entry) => <ContentCard entry={entry} locale="zh" />)}</div>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="projects-title">
+    <div class="home-section__inner">
+      <SectionHeading id="projects-title" index="05" title={t('zh', 'projects')} description="可被使用、阅读或继续改写的东西。" href="/projects/" locale="zh" />
+      <div class="project-grid">{projects.filter((project) => project.data.featured).map((project) => <ProjectCard project={project} locale="zh" />)}</div>
+    </div>
+  </section>
+</BaseLayout>

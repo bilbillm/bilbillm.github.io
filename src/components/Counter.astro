@@ -1,0 +1,90 @@
+---
+import type { Locale } from '../lib/site';
+import { t } from '../lib/locale';
+import { defaultVercountEndpoint } from '../lib/counter';
+
+interface Props {
+  locale: Locale;
+  path?: string;
+  variant?: 'site' | 'entry';
+}
+
+const { locale, path = '/', variant = 'site' } = Astro.props;
+const endpoint = import.meta.env.PUBLIC_VERCOUNT_ENDPOINT
+  ?? import.meta.env.PUBLIC_VERCOUT_ENDPOINT
+  ?? defaultVercountEndpoint;
+const label = variant === 'site' ? t(locale, 'siteTotals') : t(locale, 'viewCount');
+---
+
+<span class:list={['counter', `counter--${variant}`]} data-counter data-endpoint={endpoint} data-path={path} hidden aria-live="polite">
+  <span class="counter__label">{label}</span>
+  {variant === 'site'
+    ? <><span>UV <span class="counter__value" data-counter-site-uv>--</span></span><span>PV <span class="counter__value" data-counter-site-pv>--</span></span></>
+    : <span class="counter__value" data-counter-page-pv>--</span>}
+</span>
+
+<script>
+  import { counterStats } from '../lib/counter';
+
+  const doNotTrack = navigator.doNotTrack === '1' || (window as typeof window & { doNotTrack?: string }).doNotTrack === '1';
+  const counters = [...document.querySelectorAll<HTMLElement>('[data-counter]')];
+
+  const getCookie = (name: string) => document.cookie
+    .split('; ')
+    .find((cookie) => cookie.startsWith(`${name}=`))
+    ?.slice(name.length + 1);
+
+  const vercountEndpoint = (value: string) => {
+    try {
+      const url = new URL(value, window.location.origin);
+      return url.hostname === 'cn.vercount.one' && url.pathname === '/js'
+        ? 'https://events.vercount.one/api/v2/log'
+        : url.toString();
+    } catch {
+      return value;
+    }
+  };
+
+  const format = (value: number) => new Intl.NumberFormat().format(value);
+
+  async function initCounters() {
+    if (doNotTrack || counters.length === 0) return;
+
+    const endpoint = counters.find((counter) => counter.dataset.endpoint)?.dataset.endpoint;
+    if (endpoint) {
+      const cookieName = `vercount_uv_${window.location.host.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+      const isNewUv = getCookie(cookieName) !== '1';
+      if (isNewUv) document.cookie = `${cookieName}=1; path=/; max-age=31536000; samesite=lax`;
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 5000);
+
+      try {
+        const response = await fetch(vercountEndpoint(endpoint), {
+          method: 'POST',
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: window.location.href, isNewUv }),
+          signal: controller.signal
+        });
+        if (!response.ok) return;
+        const stats = counterStats(await response.json());
+        if (!stats) return;
+
+        counters.forEach((counter) => {
+          const siteUv = counter.querySelector<HTMLElement>('[data-counter-site-uv]');
+          const sitePv = counter.querySelector<HTMLElement>('[data-counter-site-pv]');
+          const pagePv = counter.querySelector<HTMLElement>('[data-counter-page-pv]');
+          if (siteUv) siteUv.textContent = format(stats.siteUv);
+          if (sitePv) sitePv.textContent = format(stats.sitePv);
+          if (pagePv) pagePv.textContent = format(stats.pagePv);
+          counter.hidden = false;
+        });
+      } catch {
+        // Counters are optional and must never affect reading.
+      } finally {
+        window.clearTimeout(timeout);
+      }
+    }
+  }
+
+  void initCounters();
+</script>

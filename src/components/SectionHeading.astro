@@ -1,0 +1,25 @@
+---
+import { ArrowUpRight } from 'lucide-astro';
+import type { Locale } from '../lib/site';
+import { t } from '../lib/locale';
+
+interface Props {
+  id?: string;
+  index: string;
+  title: string;
+  description?: string;
+  href?: string;
+  locale: Locale;
+}
+
+const { id, index, title, description, href, locale } = Astro.props;
+---
+
+<div class="section-heading">
+  <div>
+    <p class="section-heading__index">{index}</p>
+    <h2 id={id}>{title}</h2>
+    {description && <p class="section-heading__description">{description}</p>}
+  </div>
+  {href && <a class="text-link" href={href}>{t(locale, 'all')} <ArrowUpRight aria-hidden="true" size={16} strokeWidth={1.8} /></a>}
+</div>

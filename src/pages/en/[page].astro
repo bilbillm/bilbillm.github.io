@@ -1,0 +1,58 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getArchiveEntries, getArticles, getFragments, getNowEntries, contentUrl, formatDate } from '../../lib/content';
+import { t } from '../../lib/locale';
+
+export function getStaticPaths() {
+  return ['about', 'now', 'timeline', 'privacy', 'search'].map((page) => ({ params: { page } }));
+}
+
+const page = Astro.params.page as 'about' | 'now' | 'timeline' | 'privacy' | 'search';
+const [articles, fragments, archive, nowEntries] = await Promise.all([getArticles(), getFragments(), getArchiveEntries(), getNowEntries()]);
+const currentNow = nowEntries[0];
+const NowContent = currentNow ? (await render(currentNow)).Content : undefined;
+const timeline = [...articles, ...fragments, ...archive].sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const meta = {
+  about: ['About', 'About the author and this garden.'],
+  now: ['Now', 'Current work and attention.'],
+  timeline: ['Timeline', 'Writing, fragments, and archive entries in time.'],
+  privacy: ['Privacy', 'Privacy notes for Anamnesis | 追忆.'],
+  search: ['Search', 'Search the public archive.']
+}[page];
+---
+
+<BaseLayout title={meta[0]} description={meta[1]} pathname={`/en/${page}/`} canonicalPath={`/${page}/`} locale="en" noindex>
+  {page === 'about' && <div class="page-shell"><header class="page-header"><p class="page-header__eyebrow">ABOUT</p><h1>About</h1><p>This is not a resume, and anonymity is not absence.</p></header><article class="reading-shell prose"><p>I am 路灯下的陌生人. This garden holds writing, technical work, virtual reality, psychoanalysis, medical evidence, and interests that still resist a clean name.</p><p>Real name, school, and location are intentionally absent. What remains is the part willing to be read.</p><h2>The garden</h2><p><em>Anamnesis</em> means recollection. It does not restore everything; it admits that memory grows new forms through narration, editing, and loss.</p></article></div>}
+  {page === 'now' && <div class="page-shell"><header class="page-header"><p class="page-header__eyebrow">NOW</p><h1>Now</h1><p>Nearer than a timeline, slower than a social feed.</p></header>{currentNow && NowContent && <><p class="original-language">This entry remains in its original language.</p><article class="reading-shell prose"><p class="page-header__eyebrow">{formatDate(currentNow.data.publishedAt, 'en-US')}</p><NowContent /></article></>}</div>}
+  {page === 'timeline' && <div class="page-shell"><header class="page-header"><p class="page-header__eyebrow">TIMELINE</p><h1>Timeline</h1><p>Different kinds of entries, one line of time.</p></header><ol class="timeline">{timeline.map((entry) => <li><time datetime={entry.data.publishedAt.toISOString()}>{formatDate(entry.data.publishedAt, 'en-US')}</time><div><h2>{entry.data.title}</h2><p>{entry.data.description}</p><a href={`/en${contentUrl(entry)}`}>Read</a></div></li>)}</ol></div>}
+  {page === 'privacy' && <div class="page-shell"><header class="page-header"><p class="page-header__eyebrow">PRIVACY</p><h1>Privacy</h1><p>What this site does, and what it deliberately does not do.</p></header><div class="privacy-list"><section><h2>Visit counter</h2><p>When a Vercount-compatible endpoint is configured, optional public counts may appear. Do Not Track prevents the request, and unavailable services never interrupt reading.</p></section><section><h2>External destinations</h2><p>GitHub, Bilibili, and Steam links leave this site in the current tab and follow their own privacy policies. No comments, ads, subscription form, or social tracking pixel is embedded.</p></section><section><h2>Local preference</h2><p>A theme preference is stored only in browser localStorage.</p></section></div></div>}
+  {page === 'search' && <section class="search-shell"><header class="page-header"><p class="page-header__eyebrow">SEARCH</p><h1>Search</h1><p>Search writing, fragments, and the public archive.</p></header><label class="sr-only" for="site-search-en">Search site</label><input id="site-search-en" type="search" autocomplete="off" placeholder="Type a keyword" data-search-input /><div class="search-results" data-search-results data-no-results={t('en', 'noResults')} aria-live="polite" aria-atomic="true"></div></section>}
+</BaseLayout>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const results = document.querySelector<HTMLElement>('[data-search-results]');
+  let pagefind: any;
+  input?.addEventListener('input', async () => {
+    const query = input.value.trim();
+    if (!results) return;
+    if (!query) { results.replaceChildren(); return; }
+    try {
+      const pagefindModulePath = '/pagefind/pagefind.js';
+      pagefind ??= await import(/* @vite-ignore */ pagefindModulePath);
+      const response = await pagefind.search(query);
+      const items = await Promise.all(response.results.slice(0, 20).map((result: any) => result.data()));
+      if (items.length === 0) {
+        results.textContent = results.dataset.noResults ?? '';
+        return;
+      }
+      results.replaceChildren(...items.map((item: any) => {
+        const article = document.createElement('article'); article.className = 'search-result';
+        const link = document.createElement('a'); link.href = item.url; link.textContent = item.meta.title;
+        const excerpt = document.createElement('p'); excerpt.innerHTML = item.excerpt;
+        article.append(link, excerpt); return article;
+      }));
+    } catch { results.textContent = 'The search index is available after the production build.'; }
+  });
+</script>

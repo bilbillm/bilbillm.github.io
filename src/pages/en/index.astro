@@ -1,0 +1,32 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeHero from '../../components/HomeHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getArchiveEntries, getArticles, getFragments, getNowEntries, getProjects } from '../../lib/content';
+import { t } from '../../lib/locale';
+
+const [articles, fragments, archiveEntries, projects, nowEntries] = await Promise.all([
+  getArticles(), getFragments(), getArchiveEntries(), getProjects(), getNowEntries()
+]);
+const currentNow = nowEntries[0];
+const NowContent = currentNow ? (await render(currentNow)).Content : undefined;
+const archiveFeature = archiveEntries.find((entry) => entry.data.featured) ?? archiveEntries[0];
+---
+
+<BaseLayout pathname="/en/" canonicalPath="/" locale="en" noindex>
+  <HomeHero locale="en" />
+  <section class="home-section home-section--now" id="now" aria-labelledby="now-title"><div class="home-section__inner">
+    <SectionHeading id="now-title" index="01" title={t('en', 'now')} description="Current work, deliberately brief and open to revision." href="/en/now/" locale="en" />
+    {currentNow && NowContent && <><p class="original-language">{t('en', 'originalLanguage')}</p><div class="now-panel"><div class="now-panel__copy"><NowContent /></div><aside class="now-panel__meta"><p>{currentNow.data.description}</p><ul class="tag-list">{currentNow.data.tags.map((tag) => <li><a href={`/en/tags/${encodeURIComponent(tag)}/`}>{tag}</a></li>)}</ul></aside></div></>}
+  </div></section>
+  {archiveFeature && <section class="home-section home-section--archive" aria-labelledby="archive-title"><div class="home-section__inner">
+    <SectionHeading id="archive-title" index="02" title={t('en', 'archive')} description="A curated public dossier of Chen Xiangwan." href="/en/archive/" locale="en" />
+    <article class="archive-feature"><a class="archive-feature__visual" href={`/en/archive/${archiveFeature.id}/`}><img src={archiveFeature.data.cover ?? '/media/archive/chen-xiangwan-character-sheet.webp'} alt="Chen Xiangwan archive material." width="1672" height="941" loading="lazy" /></a><div class="archive-feature__copy"><p class="archive-feature__label">PUBLIC DOSSIER</p><h3>{archiveFeature.data.title}</h3><p>{archiveFeature.data.description}</p><a class="text-link" href={`/en/archive/${archiveFeature.id}/`}>Open archive</a><p class="archive-disclosure">{t('en', 'archiveDisclosure')}</p></div></article>
+  </div></section>}
+  <section class="home-section" aria-labelledby="articles-title"><div class="home-section__inner"><SectionHeading id="articles-title" index="03" title={t('en', 'articles')} description="Long-form writing in its original language." href="/en/articles/" locale="en" /><div class="content-grid">{articles.slice(0, 3).map((entry) => <ContentCard entry={entry} locale="en" />)}</div></div></section>
+  <section class="home-section home-section--fragments" aria-labelledby="fragments-title"><div class="home-section__inner"><SectionHeading id="fragments-title" index="04" title={t('en', 'fragments')} description="Images, sentences, and notes that remain independent." href="/en/fragments/" locale="en" /><div class="content-grid">{fragments.slice(0, 3).map((entry) => <ContentCard entry={entry} locale="en" />)}</div></div></section>
+  <section class="home-section" aria-labelledby="projects-title"><div class="home-section__inner"><SectionHeading id="projects-title" index="05" title={t('en', 'projects')} description="Things that can be used, read, or extended." href="/en/projects/" locale="en" /><div class="project-grid">{projects.filter((project) => project.data.featured).map((project) => <ProjectCard project={project} locale="en" />)}</div></div></section>
+</BaseLayout>

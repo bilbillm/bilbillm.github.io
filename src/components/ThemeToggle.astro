@@ -1,0 +1,30 @@
+---
+import { Moon, Sun } from 'lucide-astro';
+import type { Locale } from '../lib/site';
+import { t } from '../lib/locale';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<button class="icon-button theme-toggle" type="button" aria-label={t(locale, 'theme')} title={t(locale, 'theme')}>
+  <Sun class="theme-icon theme-icon--light" aria-hidden="true" size={18} strokeWidth={1.7} />
+  <Moon class="theme-icon theme-icon--dark" aria-hidden="true" size={18} strokeWidth={1.7} />
+</button>
+
+<script>
+  const storageKey = 'anamnesis-theme';
+  const applyTheme = (theme: 'light' | 'dark') => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem(storageKey, theme);
+  };
+
+  document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach((button) => {
+    button.addEventListener('click', () => {
+      applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+    });
+  });
+</script>

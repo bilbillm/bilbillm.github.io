@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout title="关于" description="关于路灯下的陌生人。" pathname="/about/">
+  <div class="page-shell">
+    <header class="page-header"><p class="page-header__eyebrow">ABOUT</p><h1>关于</h1><p>不把一个人压缩成履历，也不把匿名误解为缺席。</p></header>
+    <article class="reading-shell prose">
+      <p>我是 {site.author}。这里收纳写作、技术、虚拟现实、精神分析、医学证据与一些尚未被妥善命名的兴趣。</p>
+      <p>我喜欢从工具和文本的边缘进入问题：一段网页代码为什么需要被做出来，一次对话为什么会留下回声，一件虚构物如何变成可被他人阅读的档案。</p>
+      <p>这不是一份公开履历。真实姓名、学校与所在地不在这里；留下的是愿意被阅读的部分。</p>
+      <h2>站点</h2>
+      <p><em>Anamnesis</em> 意为追忆。它不是回头把所有东西复原，而是承认记忆总会在叙述、删改与遗失中重新长出形状。</p>
+    </article>
+  </div>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t } from '../lib/locale';
+---
+
+<BaseLayout title="搜索" description="搜索文章、断章与档案。" pathname="/search/">
+  <section class="search-shell">
+    <header class="page-header"><p class="page-header__eyebrow">SEARCH</p><h1>搜索</h1><p>在文章、断章与档案之间查找词语和标题。</p></header>
+    <label class="sr-only" for="site-search">搜索站点</label>
+    <input id="site-search" type="search" autocomplete="off" placeholder="输入关键词" data-search-input />
+    <div class="search-results" data-search-results data-no-results={t('zh', 'noResults')} aria-live="polite" aria-atomic="true"></div>
+  </section>
+</BaseLayout>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const results = document.querySelector<HTMLElement>('[data-search-results]');
+  let pagefind: any;
+
+  const renderResults = (items: { url: string; meta: { title: string }; excerpt: string }[]) => {
+    if (!results) return;
+    if (items.length === 0) {
+      results.textContent = results.dataset.noResults ?? '';
+      return;
+    }
+    results.replaceChildren(...items.map((item) => {
+      const article = document.createElement('article');
+      article.className = 'search-result';
+      const link = document.createElement('a');
+      link.href = item.url;
+      link.textContent = item.meta.title;
+      const excerpt = document.createElement('p');
+      excerpt.innerHTML = item.excerpt;
+      article.append(link, excerpt);
+      return article;
+    }));
+  };
+
+  input?.addEventListener('input', async () => {
+    const query = input.value.trim();
+    if (!results) return;
+    if (!query) { results.replaceChildren(); return; }
+    try {
+      const pagefindModulePath = '/pagefind/pagefind.js';
+      pagefind ??= await import(/* @vite-ignore */ pagefindModulePath);
+      const response = await pagefind.search(query);
+      const items = await Promise.all(response.results.slice(0, 20).map((result: any) => result.data()));
+      renderResults(items);
+    } catch {
+      results.textContent = '搜索索引将在生产构建后可用。';
+    }
+  });
+</script>
