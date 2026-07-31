@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Hexo Theme Redefine">
-    
-    
+
+
     <meta name="author" content="路灯下的陌生人">
-    
+
     <!-- Completely eliminate flash of wrong theme -->
     <script>
         (function() {
             const THEME_KEY = "REDEFINE-THEME-STATUS";
             const DARK = "dark", LIGHT = "light";
-            
+
             // Get preferred theme
             function getTheme() {
                 try {
@@ -23,25 +23,25 @@
                         return isDark ? DARK : LIGHT;
                     }
                 } catch (e) {}
-                
+
                 return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
             }
-            
+
             // Apply theme to document
             function applyTheme(theme) {
                 const isDark = theme === DARK;
                 const root = document.documentElement;
-                
+
                 // Set classes for compatibility
                 root.classList.add(theme);
                 root.classList.remove(isDark ? LIGHT : DARK);
                 root.style.colorScheme = theme;
             }
-            
+
             // Initial application
             const theme = getTheme();
             applyTheme(theme);
-            
+
             // Listen for system preference changes
             matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
                 // Only update if using system preference (no localStorage entry)
@@ -49,7 +49,7 @@
                     applyTheme(matches ? DARK : LIGHT);
                 }
             });
-            
+
             // Set body classes ASAP (before DOMContentLoaded)
             (function() {
                 const addBodyClass = () => {
@@ -70,25 +70,25 @@
             })();
         })();
     </script>
-    
+
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    
+
     <!--- Seo Part-->
-    
-    <link rel="canonical" href="http://example.com/tags/精神分析/"/>
+
+    <link rel="canonical" href="https://bilbillm.github.io/tags/Minecraft/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
-    
-    
-        
+
+
+
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:url" content="https://bilbillm.github.io/tags/Minecraft/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
@@ -96,55 +96,55 @@
 <meta property="article:author" content="Lumoren">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
-    
-    
+
+
     <!--- Icon Part-->
     <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
     <meta name="theme-color" content="#A31F34">
     <link rel="shortcut icon" href="/images/redefine-favicon.svg">
     <!--- Page Info-->
-    
+
     <title>
-        
-            标签: 精神分析 | Anamnesis | 追忆
-        
+
+            标签: Minecraft | Anamnesis | 追忆
+
     </title>
 
-    
+
 <link rel="stylesheet" href="/fonts/Chillax/chillax.css">
 
 
     <!--- Inject Part-->
-    
 
-    
+
+
 <link rel="stylesheet" href="/css/style.css">
 
 
-    
-        
+
+
 <link rel="stylesheet" href="/css/build/tailwind.css">
 
-    
 
-    
+
+
 <link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
 
-    
+
 <link rel="stylesheet" href="/fonts/Geist/geist.css">
 
     <!--- Font Part-->
-    
-    
-    
-    
-    
-    
-        
+
+
+
+
+
+
+
 <script src="/js/build/libs/anime.min.js"></script>
 
-    
+
 
     <script id="hexo-configurations">
     window.config = {"hostname":"example.com","root":"/","language":"zh-CN"};
@@ -153,37 +153,37 @@
     window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
     window.data = {"masonry":true};
   </script>
-    
+
     <!--- Fontawesome Part-->
-    
+
 <link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
 
-    
+
 <link rel="stylesheet" href="/fontawesome/brands.min.css">
 
-    
+
 <link rel="stylesheet" href="/fontawesome/solid.min.css">
 
-    
+
 <link rel="stylesheet" href="/fontawesome/regular.min.css">
 
-    
-    
-    
-    
+
+
+
+
 <meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
 	<div class="progress-bar-container">
-	
 
-	
+
+
 	<span class="pjax-progress-bar"></span>
 	<!--        <span class="swup-progress-icon">-->
 	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
 	<!--        </span>-->
-	
+
 </div>
 
 <style>
@@ -335,18 +335,18 @@
 
 <main class="page-container" id="swup">
 
-	
+
 
 	<div class="main-content-container flex flex-col justify-between min-h-dvh">
 		<div class="main-content-header">
 			<header class="navbar-container px-6 md:px-12">
     <div class="navbar-content transition-navbar ">
         <div class="left">
-            
+
             <a class="logo-title" href="/">
-                
+
                 Anamnesis | 追忆
-                
+
             </a>
         </div>
 
@@ -354,9 +354,9 @@
             <!-- PC -->
             <div class="desktop">
                 <ul class="navbar-list">
-                    
-                        
-                            
+
+
+
 
                             <li class="navbar-item">
                                 <!-- Menu -->
@@ -365,15 +365,15 @@
                                         >
                                     <i class="fa-regular fa-house fa-fw"></i>
                                     首页
-                                    
+
                                 </a>
 
                                 <!-- Submenu -->
-                                
+
                             </li>
-                    
-                        
-                            
+
+
+
 
                             <li class="navbar-item">
                                 <!-- Menu -->
@@ -382,15 +382,15 @@
                                         >
                                     <i class="fa-solid fa-image fa-fw"></i>
                                     断章
-                                    
+
                                 </a>
 
                                 <!-- Submenu -->
-                                
+
                             </li>
-                    
-                        
-                            
+
+
+
 
                             <li class="navbar-item">
                                 <!-- Menu -->
@@ -399,15 +399,15 @@
                                         >
                                     <i class="fa-solid fa-circle-user fa-fw"></i>
                                     关于
-                                    
+
                                 </a>
 
                                 <!-- Submenu -->
-                                
+
                             </li>
-                    
-                        
-                            
+
+
+
 
                             <li class="navbar-item">
                                 <!-- Menu -->
@@ -420,43 +420,43 @@
                                 </a>
 
                                 <!-- Submenu -->
-                                
+
                                     <ul class="sub-menu">
-                                        
+
                                             <li>
                                                 <a target="_blank" rel="noopener" href="https://hello.vrchat.com/">
                                                     VRCHAT
                                                 </a>
                                             </li>
-                                        
+
                                             <li>
                                                 <a target="_blank" rel="noopener" href="https://github.com/">
                                                     GITHUB
                                                 </a>
                                             </li>
-                                        
+
                                             <li>
                                                 <a target="_blank" rel="noopener" href="https://www.google.com/">
                                                     GOOGLE
                                                 </a>
                                             </li>
-                                        
+
                                             <li>
                                                 <a target="_blank" rel="noopener" href="https://store.steampowered.com/">
                                                     STEAM
                                                 </a>
                                             </li>
-                                        
+
                                     </ul>
-                                
+
                             </li>
-                    
-                    
+
+
                 </ul>
             </div>
             <!-- Mobile -->
             <div class="mobile">
-                
+
                 <div class="icon-item navbar-bar">
                     <div class="navbar-bar-middle"></div>
                 </div>
@@ -467,114 +467,114 @@
     <!-- Mobile sheet -->
     <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
-            
-                
-                    
+
+
+
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
+
                         <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/"
                         >
                             <span>
                                 首页
                             </span>
-                            
-                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
 
-                        
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+
+                        </a>
+
+
+
                     </li>
-            
-                
-                    
+
+
+
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
+
                         <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/masonry/"
                         >
                             <span>
                                 断章
                             </span>
-                            
-                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
 
-                        
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+
+                        </a>
+
+
+
                     </li>
-            
-                
-                    
+
+
+
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
+
                         <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/about"
                         >
                             <span>
                                 关于
                             </span>
-                            
-                                <i class="fa-solid fa-circle-user fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
 
-                        
+                                <i class="fa-solid fa-circle-user fa-sm fa-fw"></i>
+
+                        </a>
+
+
+
                     </li>
-            
-                
-                    
+
+
+
 
                     <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
-                        
+
                         <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                              navbar-data-toggle="submenu-Links"
                         >
                             <span>
                                 链接
                             </span>
-                            
-                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
-                            
-                        </div>
-                        
 
-                        
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+
+                        </div>
+
+
+
                             <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
-                                
+
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
                                         <a class=" text-third-text-color text-xl"
                                            target="_blank" rel="noopener" href="https://hello.vrchat.com/">VRCHAT</a>
                                     </div>
-                                
+
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
                                         <a class=" text-third-text-color text-xl"
                                            target="_blank" rel="noopener" href="https://github.com/">GITHUB</a>
                                     </div>
-                                
+
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
                                         <a class=" text-third-text-color text-xl"
                                            target="_blank" rel="noopener" href="https://www.google.com/">GOOGLE</a>
                                     </div>
-                                
+
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
                                         <a class=" text-third-text-color text-xl"
                                            target="_blank" rel="noopener" href="https://store.steampowered.com/">STEAM</a>
                                     </div>
-                                
-                            </div>
-                        
-                    </li>
-            
 
-            
-            
+                            </div>
+
+                    </li>
+
+
+
+
         </ul>
 
         <div class="statistics flex justify-around my-2.5">
@@ -601,119 +601,119 @@
 		</div>
 
 		<div class="main-content-body transition-fade-up">
-			
+
 
 			<div class="main-content">
 				<div class="page-template-container">
-	
 
-	
+
+
 	<div class="tag-name">
-    <i class="fa-solid fa-tag"></i>&nbsp;精神分析
+    <i class="fa-solid fa-tag"></i>&nbsp;Minecraft
 </div>
 <div class="tag-post-list">
-    
+
 <div class="archive-list-container">
-    
+
         <section class="archive-item mb-spacing-unit last:mb-0">
             <div class="archive-item-header flex flex-row items-center mb-2">
                 <span class="archive-year font-semibold text-3xl mr-2">2026</span>
                 <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">1</span>
             </div>
-            
+
             <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
-                
-                    
-                    
+
+
+
                          <!-- Close the previous LI if not the first item -->
-                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-25'>
-                    
-                    <a href="/2026/02/25/%E6%B7%B1%E5%A4%9C%E7%9A%84%E8%83%A1%E8%A8%80%E4%B9%B1%E8%AF%AD-vrchat%E5%90%A7%E5%9B%9E%E5%B8%96/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">深夜的胡言乱语：精神分析、AI 与虚拟现实</span>
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-30'>
+
+                    <a href="/2026/07/30/dglab-craft-minecraft-mod/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">DGLab Craft：给 Minecraft 加一点来自现实的反馈</span>
                     </a>
-                    
-                
+
+
                 </li> <!-- Ensure the last item is properly closed -->
             </ul>
         </section>
-    
+
 </div>
 </div>
-	
+
 
 	<div class="page-template-content markdown-body">
-		
 
-		
+
+
 	</div>
 
 	<div class="page-template-comments">
-		
+
 	</div>
 </div>
 
 <div class="paginator">
 	<span class="page-number current">1</span>
 </div>
-  
+
 			</div>
 
-			
+
 		</div>
 
 		<div class="main-content-footer">
 			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
-        
+
         <div class="text-center">
             &copy;
-            
+
               <span>2026</span>
               -
-            
+
             2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">路灯下的陌生人</a>
-            
-                
+
+
                 <p class="post-count space-x-0.5">
                     <span>
                         共撰写了 5 篇文章
                     </span>
-                    
+
                         <span>
                             共 6.0k 字
                         </span>
-                    
+
                 </p>
-            
+
         </div>
-        
+
             <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
             <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
-                
+
                     <span id="busuanzi_container_site_uv" class="lg:!block">
                         <span class="text-sm">访问人数</span>
                         <span id="busuanzi_value_site_uv"></span>
                     </span>
-                
-                
+
+
                     <span id="busuanzi_container_site_pv" class="lg:!block">
                         <span class="text-sm">总访问量</span>
                         <span id="busuanzi_value_site_pv"></span>
                     </span>
-                
+
             </div>
-        
+
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
             <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
         </div>
-        
-        
+
+
             <div>
                 博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
             </div>
-        
-        
+
+
             <script data-swup-reload-script>
                 try {
                     function odometer_init() {
@@ -729,15 +729,15 @@
                     odometer_init();
                 } catch (error) {}
             </script>
-        
-        
-        
-    </div>  
+
+
+
+    </div>
 </footer>
 		</div>
 	</div>
 
-	
+
 
 	<div class="right-side-tools-container">
 		<div class="side-tools-container">
@@ -755,9 +755,9 @@
 		</li>
 
 		<!-- rss -->
-		
 
-		
+
+
 
 		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
 			<i class="fa-regular fa-arrow-down"></i>
@@ -768,13 +768,13 @@
 		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
 			<i class="fa-regular fa-cog fa-spin"></i>
 		</li>
-		
+
 		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
 			<i class="arrow-up fas fa-arrow-up"></i>
 			<span class="percent"></span>
 		</li>
-		
-		
+
+
 	</ul>
 </div>
 	</div>
@@ -817,7 +817,7 @@
 </div>
 
 
-	
+
 
 </main>
 
@@ -864,15 +864,15 @@
 
 
 
-	
+
 <script src="/js/build/main.js" type="module"></script>
 
 
 
-    
+
 <script src="/js/build/libs/odometer.min.js"></script>
 
-    
+
 <link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
 
 
@@ -881,7 +881,7 @@
 
 
 
-  
+
 <script src="/js/build/libs/Typed.min.js"></script>
 
 
@@ -891,7 +891,7 @@
 
 
 
-    
+
 <script src="/js/build/libs/minimasonry.min.js" data-swup-reload-script=""></script>
 
 
@@ -901,7 +901,7 @@
 
 
 
-	
+
 </body>
 
 </html>

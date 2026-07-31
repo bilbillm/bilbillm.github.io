@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Hexo Theme Redefine">
-    
-    
+
+
     <meta name="author" content="路灯下的陌生人">
-    
+
     <!-- Completely eliminate flash of wrong theme -->
     <script>
         (function() {
             const THEME_KEY = "REDEFINE-THEME-STATUS";
             const DARK = "dark", LIGHT = "light";
-            
+
             // Get preferred theme
             function getTheme() {
                 try {
@@ -23,25 +23,25 @@
                         return isDark ? DARK : LIGHT;
                     }
                 } catch (e) {}
-                
+
                 return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
             }
-            
+
             // Apply theme to document
             function applyTheme(theme) {
                 const isDark = theme === DARK;
                 const root = document.documentElement;
-                
+
                 // Set classes for compatibility
                 root.classList.add(theme);
                 root.classList.remove(isDark ? LIGHT : DARK);
                 root.style.colorScheme = theme;
             }
-            
+
             // Initial application
             const theme = getTheme();
             applyTheme(theme);
-            
+
             // Listen for system preference changes
             matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
                 // Only update if using system preference (no localStorage entry)
@@ -49,7 +49,7 @@
                     applyTheme(matches ? DARK : LIGHT);
                 }
             });
-            
+
             // Set body classes ASAP (before DOMContentLoaded)
             (function() {
                 const addBodyClass = () => {
@@ -70,81 +70,91 @@
             })();
         })();
     </script>
-    
+
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    
+
     <!--- Seo Part-->
-    
-    <link rel="canonical" href="http://example.com/tags/精神分析/"/>
+
+    <link rel="canonical" href="https://bilbillm.github.io/2026/07/30/dglab-craft-minecraft-mod/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
-    
-    
-        
-        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90/index.html">
+
+
+
+        <meta name="description" content="DGLab Craft：把 Minecraft 里的伤害、环境和心跳反馈连接到现实。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DGLab Craft：给 Minecraft 加一点来自现实的反馈">
+<meta property="og:url" content="https://bilbillm.github.io/2026/07/30/dglab-craft-minecraft-mod/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:description" content="DGLab Craft：把 Minecraft 里的伤害、环境和心跳反馈连接到现实。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-07-30T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-30T04:00:00.000Z">
 <meta property="article:author" content="Lumoren">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
-    
-    
+
+
     <!--- Icon Part-->
     <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
     <meta name="theme-color" content="#A31F34">
     <link rel="shortcut icon" href="/images/redefine-favicon.svg">
     <!--- Page Info-->
-    
+
     <title>
-        
-            标签: 精神分析 | Anamnesis | 追忆
-        
+
+            DGLab Craft：给 Minecraft 加一点来自现实的反馈 | Anamnesis | 追忆
+
     </title>
 
-    
+
 <link rel="stylesheet" href="/fonts/Chillax/chillax.css">
 
 
     <!--- Inject Part-->
-    
 
-    
+
+
 <link rel="stylesheet" href="/css/style.css">
 
 
-    
-        
+
+
 <link rel="stylesheet" href="/css/build/tailwind.css">
 
-    
 
-    
+
+
 <link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
 
-    
+
 <link rel="stylesheet" href="/fonts/Geist/geist.css">
 
     <!--- Font Part-->
-    
-    
-    
-    
-    
-    
-        
+
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                <li><a href="/tags/Minecraft/">Minecraft</a>&nbsp;</li>
+                <li>| <a href="/tags/Forge/">Forge</a>&nbsp;</li>
+                <li>| <a href="/tags/DGLab/">DGLab</a>&nbsp;</li>
+                <li>| <a href="/tags/交互/">交互</a>&nbsp;</li>
+            </ul>
+        </span>
+
+
+
+
+
 <script src="/js/build/libs/anime.min.js"></script>
 
-    
+
 
     <script id="hexo-configurations">
     window.config = {"hostname":"example.com","root":"/","language":"zh-CN"};
@@ -153,37 +163,37 @@
     window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
     window.data = {"masonry":true};
   </script>
-    
+
     <!--- Fontawesome Part-->
-    
+
 <link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
 
-    
+
 <link rel="stylesheet" href="/fontawesome/brands.min.css">
 
-    
+
 <link rel="stylesheet" href="/fontawesome/solid.min.css">
 
-    
+
 <link rel="stylesheet" href="/fontawesome/regular.min.css">
 
-    
-    
-    
-    
+
+
+
+
 <meta name="generator" content="Hexo 8.1.1"></head>
 
 
 <body>
 	<div class="progress-bar-container">
-	
 
-	
+
+
 	<span class="pjax-progress-bar"></span>
 	<!--        <span class="swup-progress-icon">-->
 	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
 	<!--        </span>-->
-	
+
 </div>
 
 <style>
@@ -335,18 +345,18 @@
 
 <main class="page-container" id="swup">
 
-	
+
 
 	<div class="main-content-container flex flex-col justify-between min-h-dvh">
 		<div class="main-content-header">
 			<header class="navbar-container px-6 md:px-12">
     <div class="navbar-content transition-navbar ">
         <div class="left">
-            
+
             <a class="logo-title" href="/">
-                
+
                 Anamnesis | 追忆
-                
+
             </a>
         </div>
 
@@ -354,9 +364,9 @@
             <!-- PC -->
             <div class="desktop">
                 <ul class="navbar-list">
-                    
-                        
-                            
+
+
+
 
                             <li class="navbar-item">
                                 <!-- Menu -->
@@ -365,15 +375,15 @@
                                         >
                                     <i class="fa-regular fa-house fa-fw"></i>
                                     首页
-                                    
+
                                 </a>
 
                                 <!-- Submenu -->
-                                
+
                             </li>
-                    
-                        
-                            
+
+
+
 
                             <li class="navbar-item">
                                 <!-- Menu -->
@@ -382,15 +392,15 @@
                                         >
                                     <i class="fa-solid fa-image fa-fw"></i>
                                     断章
-                                    
+
                                 </a>
 
                                 <!-- Submenu -->
-                                
+
                             </li>
-                    
-                        
-                            
+
+
+
 
                             <li class="navbar-item">
                                 <!-- Menu -->
@@ -399,15 +409,15 @@
                                         >
                                     <i class="fa-solid fa-circle-user fa-fw"></i>
                                     关于
-                                    
+
                                 </a>
 
                                 <!-- Submenu -->
-                                
+
                             </li>
-                    
-                        
-                            
+
+
+
 
                             <li class="navbar-item">
                                 <!-- Menu -->
@@ -420,43 +430,43 @@
                                 </a>
 
                                 <!-- Submenu -->
-                                
+
                                     <ul class="sub-menu">
-                                        
+
                                             <li>
                                                 <a target="_blank" rel="noopener" href="https://hello.vrchat.com/">
                                                     VRCHAT
                                                 </a>
                                             </li>
-                                        
+
                                             <li>
                                                 <a target="_blank" rel="noopener" href="https://github.com/">
                                                     GITHUB
                                                 </a>
                                             </li>
-                                        
+
                                             <li>
                                                 <a target="_blank" rel="noopener" href="https://www.google.com/">
                                                     GOOGLE
                                                 </a>
                                             </li>
-                                        
+
                                             <li>
                                                 <a target="_blank" rel="noopener" href="https://store.steampowered.com/">
                                                     STEAM
                                                 </a>
                                             </li>
-                                        
+
                                     </ul>
-                                
+
                             </li>
-                    
-                    
+
+
                 </ul>
             </div>
             <!-- Mobile -->
             <div class="mobile">
-                
+
                 <div class="icon-item navbar-bar">
                     <div class="navbar-bar-middle"></div>
                 </div>
@@ -467,114 +477,114 @@
     <!-- Mobile sheet -->
     <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
         <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
-            
-                
-                    
+
+
+
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
+
                         <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/"
                         >
                             <span>
                                 首页
                             </span>
-                            
-                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
 
-                        
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+
+                        </a>
+
+
+
                     </li>
-            
-                
-                    
+
+
+
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
+
                         <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/masonry/"
                         >
                             <span>
                                 断章
                             </span>
-                            
-                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
 
-                        
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+
+                        </a>
+
+
+
                     </li>
-            
-                
-                    
+
+
+
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
+
                         <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/about"
                         >
                             <span>
                                 关于
                             </span>
-                            
-                                <i class="fa-solid fa-circle-user fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
 
-                        
+                                <i class="fa-solid fa-circle-user fa-sm fa-fw"></i>
+
+                        </a>
+
+
+
                     </li>
-            
-                
-                    
+
+
+
 
                     <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
-                        
+
                         <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                              navbar-data-toggle="submenu-Links"
                         >
                             <span>
                                 链接
                             </span>
-                            
-                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
-                            
-                        </div>
-                        
 
-                        
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+
+                        </div>
+
+
+
                             <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Links">
-                                
+
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
                                         <a class=" text-third-text-color text-xl"
                                            target="_blank" rel="noopener" href="https://hello.vrchat.com/">VRCHAT</a>
                                     </div>
-                                
+
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
                                         <a class=" text-third-text-color text-xl"
                                            target="_blank" rel="noopener" href="https://github.com/">GITHUB</a>
                                     </div>
-                                
+
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
                                         <a class=" text-third-text-color text-xl"
                                            target="_blank" rel="noopener" href="https://www.google.com/">GOOGLE</a>
                                     </div>
-                                
+
                                     <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
                                         <a class=" text-third-text-color text-xl"
                                            target="_blank" rel="noopener" href="https://store.steampowered.com/">STEAM</a>
                                     </div>
-                                
-                            </div>
-                        
-                    </li>
-            
 
-            
-            
+                            </div>
+
+                    </li>
+
+
+
+
         </ul>
 
         <div class="statistics flex justify-around my-2.5">
@@ -601,119 +611,314 @@
 		</div>
 
 		<div class="main-content-body transition-fade-up">
-			
+
 
 			<div class="main-content">
-				<div class="page-template-container">
-	
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-	
-	<div class="tag-name">
-    <i class="fa-solid fa-tag"></i>&nbsp;精神分析
-</div>
-<div class="tag-post-list">
-    
-<div class="archive-list-container">
-    
-        <section class="archive-item mb-spacing-unit last:mb-0">
-            <div class="archive-item-header flex flex-row items-center mb-2">
-                <span class="archive-year font-semibold text-3xl mr-2">2026</span>
-                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">1</span>
-            </div>
-            
-            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
-                
-                    
-                    
-                         <!-- Close the previous LI if not the first item -->
-                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-25'>
-                    
-                    <a href="/2026/02/25/%E6%B7%B1%E5%A4%9C%E7%9A%84%E8%83%A1%E8%A8%80%E4%B9%B1%E8%AF%AD-vrchat%E5%90%A7%E5%9B%9E%E5%B8%96/" class="block w-fit">
-                        <span class="article-title my-0.5 text-2xl">深夜的胡言乱语：精神分析、AI 与虚拟现实</span>
-                    </a>
-                    
-                
-                </li> <!-- Ensure the last item is properly closed -->
-            </ul>
-        </section>
-    
-</div>
-</div>
-	
+		<div class="article-title relative w-full">
 
-	<div class="page-template-content markdown-body">
-		
-
-		
-	</div>
-
-	<div class="page-template-comments">
-		
-	</div>
-</div>
-
-<div class="paginator">
-	<span class="page-number current">1</span>
-</div>
-  
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">DGLab Craft：给 Minecraft 加一点来自现实的反馈</h1>
 			</div>
 
-			
+		</div>
+
+
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="https://pic1.imgdb.cn/item/6991b0521bd2de2ccc6f35aa.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">路灯下的陌生人</span>
+
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-07-30 12:00:00</span>
+        <span class="mobile">2026-07-30 12:00:00</span>
+        <span class="hover-info">创建</span>
+    </span>
+
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-07-30 12:00:00</span>
+            <span class="mobile">2026-07-30 12:00:00</span>
+            <span class="hover-info">更新</span>
+        </span>
+
+
+
+
+
+
+
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.8k 字</span>
+        </span>
+
+
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 分钟</span>
+        </span>
+
+
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+
+</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="DGLab-Craft：给-Minecraft-加一点来自现实的反馈"><a href="#DGLab-Craft：给-Minecraft-加一点来自现实的反馈" class="headerlink" title="DGLab Craft：给 Minecraft 加一点来自现实的反馈"></a>DGLab Craft：给 Minecraft 加一点来自现实的反馈</h1><p><strong>让游戏里的伤害，终于不只停留在屏幕上。</strong></p>
+<blockquote>
+<p>🔗 仓库链接：<a class="link" target="_blank" rel="noopener" href="https://github.com/bilbillm/DGLab-Craft">https://github.com/bilbillm/DGLab-Craft<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>🔗 Releases：<a class="link" target="_blank" rel="noopener" href="https://github.com/bilbillm/DGLab-Craft/releases">https://github.com/bilbillm/DGLab-Craft/releases<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+<p>最近把自己写的 Minecraft Mod 整理了一下，叫 <strong>DGLab Craft</strong>。它做的事情说复杂也不复杂：把游戏里的事件转换成 DGLab 设备的反馈。你在下界被岩浆烫、在洞里摔下来、血量掉到危险线，现实里的设备会跟着给一点提示。</p>
+<p>听起来有点像给苦日子增加触感（？）但我做完之后，确实觉得 Minecraft 变得不太一样了。</p>
+<hr>
+<h2 id="它到底能做什么"><a href="#它到底能做什么" class="headerlink" title="它到底能做什么"></a>它到底能做什么</h2><p>目前的目标平台是 <strong>Minecraft 1.20.1 + Forge</strong>。Mod 监听游戏事件，再按事件类型生成不同的波形，发送到 DGLab App：</p>
+<ul>
+<li>低血量时给出类似心跳的持续反馈，提醒你别再浪了</li>
+<li>受到伤害时按伤害来源区分强度，摔落、爆炸、火焰和生物攻击不会完全一样</li>
+<li>下界、末地、传送门、粉雪和其他环境事件也有对应提示</li>
+<li>A/B 两个通道可以同步，也可以分别控制</li>
+<li>反馈结束后会自动淡出，不会突然戛然而止</li>
+</ul>
+<p>游戏内还有简单的 HUD 和连接状态显示。按默认键位 <strong>K</strong> 可以打开设置，至少不用每次都切出去看日志确认到底连没连上。</p>
+<hr>
+<h2 id="最开始只是想让掉血有点感觉"><a href="#最开始只是想让掉血有点感觉" class="headerlink" title="最开始只是想让掉血有点感觉"></a>最开始只是想让掉血有点感觉</h2><p>最开始的 idea 非常朴素：我在洞里挖矿，低头看见血条少了一截，过了两秒才发现自己被骷髅射了。Minecraft 的伤害反馈其实很明确，屏幕会红一下、角色会后退、音效会响，但我还是经常处于一种“啊？什么时候掉的血”的状态。</p>
+<p>于是我想，能不能把这个事件搬到屏幕外面？不是为了让游戏更难，而是让那些本来会被 UI 和音效吞掉的瞬间，有一点真实的存在感。</p>
+<p>第一版只做了掉血和低血量心跳，波形参数也写得很随便。能震就算成功。后来发现不同伤害如果都用同一种反馈，玩起来很快就麻木了，于是才慢慢补上伤害来源、环境和渐弱。</p>
+<hr>
+<h2 id="最折磨人的部分是连接"><a href="#最折磨人的部分是连接" class="headerlink" title="最折磨人的部分是连接"></a>最折磨人的部分是连接</h2><p>真正让我头疼的不是 Forge 事件，而是设备连接。</p>
+<p>DGLab App 这一侧走的是本地 WebSocket。Mod 需要先启动本地服务，再和 App 建立连接；手机和电脑还可能不在同一个网络里，防火墙也会很热心地把一切新端口拦下来。第一次测试的时候，我盯着屏幕上的“连接失败”看了半天，最后发现只是 Windows 防火墙弹窗被我按到后台去了。</p>
+<p>所以现在的连接流程支持二维码和局域网发现，游戏里也会把连接状态直接显示出来。没有连接时，Mod 只是不发送反馈，游戏本身照常运行，不会因为一个外设掉线把存档一起带走。</p>
+<hr>
+<h2 id="我比较喜欢的部分"><a href="#我比较喜欢的部分" class="headerlink" title="我比较喜欢的部分"></a>我比较喜欢的部分</h2><p>我比较喜欢的不是“震”本身，而是它把游戏里的信息重新分了一层。</p>
+<p>以前我知道自己受伤，是因为看到了血条和红屏；现在有些时候我还没来得及转身，已经先知道身后发生了什么。它不像 VR 那样试图把整个世界包起来，只是在视觉和听觉之外再加一条很窄的通道。</p>
+<p>这条通道反而让一些小事变得明显：在黑暗里听见僵尸声音时，反馈和音效一起出现；从高处落下时，身体会先收到一个短促的提醒；血量长期危险时，心跳会变成一种不太能忽略的背景噪音。游戏还是那个游戏，但注意力的分配变了。</p>
+<hr>
+<h2 id="这东西有没有用"><a href="#这东西有没有用" class="headerlink" title="这东西有没有用"></a>这东西有没有用</h2><p>如果“有用”的意思是提高效率，那它大概没有。它不能替你挖矿，也不能让你打末影龙变得更聪明。某种程度上，它甚至会让你在专心建筑的时候被突然的反馈吓一跳。</p>
+<p>但如果“有用”的意思是让一个熟悉的游戏重新产生一点陌生感，那我觉得有用。玩了很多年之后，Minecraft 的大多数事件都已经变成了条件反射。DGLab Craft 只是把这些条件反射拽回来一点，让你重新意识到：我刚刚真的在岩浆旁边走了一圈。</p>
+<p>当然，强度一定要从低开始，慢慢调。不要一上来就把参数拉满，也不要在不舒服的时候硬撑。这个 Mod 的意义不是制造疼痛，至少我做它的时候不是这么想的。</p>
+<hr>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>咳咳，写到这里感觉又从一个很小的点扯远了。</p>
+<p>DGLab Craft 目前还是一个很具体、很私人、也不一定适合所有人的 Mod。它没有什么宏大的技术突破，就是把 Minecraft 的事件、一个本地 WebSocket，再加上一台设备接到了一起。可是当它第一次在我掉下悬崖的瞬间给出反馈时，我还是觉得：嗯，这个东西确实应该存在。</p>
+<p>代码和构建文件都放在 GitHub 上了。想试的话从低强度开始，连接遇到问题也欢迎直接提 issue。至于我之后还会不会继续加新的事件……先挖个坑，等下次更新再说。</p>
+
+		</div>
+
+
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> DGLab Craft：给 Minecraft 加一点来自现实的反馈</li>
+        <li><strong>作者:</strong> 路灯下的陌生人</li>
+        <li><strong>创建于
+                :</strong> 2026-07-30 12:00:00</li>
+
+            <li>
+                <strong>更新于
+                    :</strong> 2026-07-30 12:00:00
+            </li>
+
+        <li>
+            <strong>链接:</strong> https://bilbillm.github.io/2026/07/30/dglab-craft-minecraft-mod/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+
+
+
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+
+        </li>
+    </ul>
+</div>
+
+		</div>
+
+
+
+
+
+
+
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+
+			<!-- This is the newest post, so there is no newer article. -->
+
+
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/02/25/%E6%B7%B1%E5%A4%9C%E7%9A%84%E8%83%A1%E8%A8%80%E4%B9%B1%E8%AF%AD-vrchat%E5%90%A7%E5%9B%9E%E5%B8%96/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">深夜的胡言乱语：精神分析、AI 与虚拟现实</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+
+		</div>
+
+
+
+
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+
+
+
+
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.js';
+
+      (function() {
+        const startPath = location.pathname;
+        const startTime = Date.now();
+        const retryDelay = 200;
+        const retryLimit = 5000;
+
+        const runWaline = () => {
+          if (location.pathname !== startPath) {
+            return;
+          }
+
+          const container = document.getElementById('waline');
+          if (!container) {
+            if (Date.now() - startTime < retryLimit) {
+              setTimeout(runWaline, retryDelay);
+            }
+            return;
+          }
+
+          if (window.redefineWalineInstance?.destroy) {
+            window.redefineWalineInstance.destroy();
+          }
+
+          container.innerHTML = '';
+          window.redefineWalineInstance = init({
+            el: '#waline',
+            serverURL: 'https://example.example.com',
+            path: location.pathname,
+            dark: 'body[class~="dark-mode"]',
+            reaction: false,
+            requiredMeta: ['nick', 'mail'],
+            emoji: [],
+                      lang: 'zh-CN',
+          });
+        };
+
+        runWaline();
+      })();
+    </script>
+
+
+
+
+
+</div>
+
+		</div>
+
+	</div>
+
+
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">DGLab Craft：给 Minecraft 加一点来自现实的反馈</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DGLab-Craft：给-Minecraft-加一点来自现实的反馈"><span class="nav-text">DGLab Craft：给 Minecraft 加一点来自现实的反馈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#它到底能做什么"><span class="nav-text">它到底能做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最开始只是想让掉血有点感觉"><span class="nav-text">最开始只是想让掉血有点感觉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最折磨人的部分是连接"><span class="nav-text">最折磨人的部分是连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我比较喜欢的部分"><span class="nav-text">我比较喜欢的部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这东西有没有用"><span class="nav-text">这东西有没有用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-text">写在最后</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+
+</div>
+
+			</div>
+
+
 		</div>
 
 		<div class="main-content-footer">
 			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
     <div class="info-container py-3 text-center">
-        
+
         <div class="text-center">
             &copy;
-            
+
               <span>2026</span>
               -
-            
+
             2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">路灯下的陌生人</a>
-            
-                
+
+
                 <p class="post-count space-x-0.5">
                     <span>
                         共撰写了 5 篇文章
                     </span>
-                    
+
                         <span>
                             共 6.0k 字
                         </span>
-                    
+
                 </p>
-            
+
         </div>
-        
+
             <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
             <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
-                
+
                     <span id="busuanzi_container_site_uv" class="lg:!block">
                         <span class="text-sm">访问人数</span>
                         <span id="busuanzi_value_site_uv"></span>
                     </span>
-                
-                
+
+
                     <span id="busuanzi_container_site_pv" class="lg:!block">
                         <span class="text-sm">总访问量</span>
                         <span id="busuanzi_value_site_pv"></span>
                     </span>
-                
+
             </div>
-        
+
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
             <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
         </div>
-        
-        
+
+
             <div>
                 博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
             </div>
-        
-        
+
+
             <script data-swup-reload-script>
                 try {
                     function odometer_init() {
@@ -729,15 +934,35 @@
                     odometer_init();
                 } catch (error) {}
             </script>
-        
-        
-        
-    </div>  
+
+
+
+    </div>
 </footer>
 		</div>
 	</div>
 
-	
+
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+
+
+		<!-- go comment -->
+
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+
+	</ul>
+</div>
+	</div>
+
 
 	<div class="right-side-tools-container">
 		<div class="side-tools-container">
@@ -755,9 +980,9 @@
 		</li>
 
 		<!-- rss -->
-		
 
-		
+
+
 
 		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
 			<i class="fa-regular fa-arrow-down"></i>
@@ -768,13 +993,13 @@
 		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
 			<i class="fa-regular fa-cog fa-spin"></i>
 		</li>
-		
+
 		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
 			<i class="arrow-up fas fa-arrow-up"></i>
 			<span class="percent"></span>
 		</li>
-		
-		
+
+
 	</ul>
 </div>
 	</div>
@@ -817,7 +1042,7 @@
 </div>
 
 
-	
+
 
 </main>
 
@@ -864,15 +1089,16 @@
 
 
 
-	
+
+
 <script src="/js/build/main.js" type="module"></script>
 
 
 
-    
+
 <script src="/js/build/libs/odometer.min.js"></script>
 
-    
+
 <link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
 
 
@@ -881,7 +1107,7 @@
 
 
 
-  
+
 <script src="/js/build/libs/Typed.min.js"></script>
 
 
@@ -891,7 +1117,7 @@
 
 
 
-    
+
 <script src="/js/build/libs/minimasonry.min.js" data-swup-reload-script=""></script>
 
 
@@ -901,7 +1127,7 @@
 
 
 
-	
+
 </body>
 
 </html>
