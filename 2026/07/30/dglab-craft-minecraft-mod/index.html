@@ -595,7 +595,7 @@
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -686,38 +686,36 @@
 <blockquote>
 <p>🔗 仓库链接：<a class="link" target="_blank" rel="noopener" href="https://github.com/bilbillm/DGLab-Craft">https://github.com/bilbillm/DGLab-Craft<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>🔗 Releases：<a class="link" target="_blank" rel="noopener" href="https://github.com/bilbillm/DGLab-Craft/releases">https://github.com/bilbillm/DGLab-Craft/releases<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 </blockquote>
-<p>最近把自己写的 Minecraft Mod 整理了一下，叫 <strong>DGLab Craft</strong>。它做的事情说复杂也不复杂：把游戏里的事件转换成 DGLab 设备的反馈。你在下界被岩浆烫、在洞里摔下来、血量掉到危险线，现实里的设备会跟着给一点提示。</p>
-<p>听起来有点像给苦日子增加触感（？）但我做完之后，确实觉得 Minecraft 变得不太一样了。</p>
+<p>最近把自己写的 Minecraft Mod 整理了一下，叫 <strong>DGLab Craft</strong>。它做的事情说复杂也不复杂：监听游戏事件，按事件类型生成不同强度的波形，再通过本地 WebSocket 发送给 DGLab App，让现实里的设备给出对应的反馈。你在下界被岩浆烫、在洞里摔下来、血量掉到危险线，都会收到一点来自现实的提示。</p>
+<p>做完之后我确实觉得，Minecraft 变得不太一样了——不是更难了，而是那些平时会被红屏和音效吞掉的瞬间，终于有了一点存在感。</p>
 <hr>
-<h2 id="它到底能做什么"><a href="#它到底能做什么" class="headerlink" title="它到底能做什么"></a>它到底能做什么</h2><p>目前的目标平台是 <strong>Minecraft 1.20.1 + Forge</strong>。Mod 监听游戏事件，再按事件类型生成不同的波形，发送到 DGLab App：</p>
+<h2 id="它是做什么的"><a href="#它是做什么的" class="headerlink" title="它是做什么的"></a>它是做什么的</h2><p>目前的目标平台是 <strong>Minecraft 1.20.1 + Forge</strong>。Mod 在游戏内监听事件，再按事件类型生成不同的波形：</p>
 <ul>
 <li>低血量时给出类似心跳的持续反馈，提醒你别再浪了</li>
-<li>受到伤害时按伤害来源区分强度，摔落、爆炸、火焰和生物攻击不会完全一样</li>
-<li>下界、末地、传送门、粉雪和其他环境事件也有对应提示</li>
+<li>受伤时按来源区分强度：摔落、爆炸、火焰与生物攻击各不相同</li>
+<li>下界、末地、传送门、粉雪等环境事件也有对应提示</li>
 <li>A/B 两个通道可以同步，也可以分别控制</li>
-<li>反馈结束后会自动淡出，不会突然戛然而止</li>
+<li>反馈结束时自动淡出，不会戛然而止</li>
 </ul>
-<p>游戏内还有简单的 HUD 和连接状态显示。按默认键位 <strong>K</strong> 可以打开设置，至少不用每次都切出去看日志确认到底连没连上。</p>
+<p>游戏内还有简单的 HUD 与连接状态显示，按默认键位 <strong>K</strong> 打开设置——至少不用再切出游戏看日志，确认到底连没连上。</p>
 <hr>
-<h2 id="最开始只是想让掉血有点感觉"><a href="#最开始只是想让掉血有点感觉" class="headerlink" title="最开始只是想让掉血有点感觉"></a>最开始只是想让掉血有点感觉</h2><p>最开始的 idea 非常朴素：我在洞里挖矿，低头看见血条少了一截，过了两秒才发现自己被骷髅射了。Minecraft 的伤害反馈其实很明确，屏幕会红一下、角色会后退、音效会响，但我还是经常处于一种“啊？什么时候掉的血”的状态。</p>
-<p>于是我想，能不能把这个事件搬到屏幕外面？不是为了让游戏更难，而是让那些本来会被 UI 和音效吞掉的瞬间，有一点真实的存在感。</p>
-<p>第一版只做了掉血和低血量心跳，波形参数也写得很随便。能震就算成功。后来发现不同伤害如果都用同一种反馈，玩起来很快就麻木了，于是才慢慢补上伤害来源、环境和渐弱。</p>
+<h2 id="最开始只是想让掉血有点感觉"><a href="#最开始只是想让掉血有点感觉" class="headerlink" title="最开始只是想让掉血有点感觉"></a>最开始只是想让掉血有点感觉</h2><p>最初的 idea 很朴素：我在洞里挖矿，低头看见血条少了一截，过了两秒才反应过来自己被骷髅射了。Minecraft 的伤害反馈其实很明确——红屏、后退、音效——但我还是经常处于一种「啊？什么时候掉的血」的状态。</p>
+<p>于是我想，能不能把这个事件搬到屏幕外面？不是为了让游戏更难，而是让那些本来会被视觉与听觉习惯性吞掉的瞬间，有一点真实的存在感。</p>
+<p>第一版只做了掉血与低血量心跳，波形参数写得很随意。能震就算成功。后来发现所有伤害如果共用同一种反馈，玩起来很快就会麻木，这才慢慢补上伤害来源、环境事件与渐弱。</p>
 <hr>
-<h2 id="最折磨人的部分是连接"><a href="#最折磨人的部分是连接" class="headerlink" title="最折磨人的部分是连接"></a>最折磨人的部分是连接</h2><p>真正让我头疼的不是 Forge 事件，而是设备连接。</p>
-<p>DGLab App 这一侧走的是本地 WebSocket。Mod 需要先启动本地服务，再和 App 建立连接；手机和电脑还可能不在同一个网络里，防火墙也会很热心地把一切新端口拦下来。第一次测试的时候，我盯着屏幕上的“连接失败”看了半天，最后发现只是 Windows 防火墙弹窗被我按到后台去了。</p>
-<p>所以现在的连接流程支持二维码和局域网发现，游戏里也会把连接状态直接显示出来。没有连接时，Mod 只是不发送反馈，游戏本身照常运行，不会因为一个外设掉线把存档一起带走。</p>
+<h2 id="最折磨人的部分是连接"><a href="#最折磨人的部分是连接" class="headerlink" title="最折磨人的部分是连接"></a>最折磨人的部分是连接</h2><p>真正让我头疼的不是 Forge 事件，而是设备连接。DGLab App 这一侧走的是本地 WebSocket：Mod 要先启动本地服务，再与 App 建立连接；手机和电脑还可能不在同一个网络里，防火墙也乐于把一切新端口拦下来。第一次测试时，我盯着屏幕上的「连接失败」看了半天，最后发现只是 Windows 防火墙的弹窗被我按进了后台。</p>
+<p>所以现在的连接流程支持二维码与局域网发现，连接状态也会直接显示在游戏里。没有连接时，Mod 只是不发送反馈，游戏本身照常运行——不会因为一个外设掉线，把存档一起带走。</p>
 <hr>
-<h2 id="我比较喜欢的部分"><a href="#我比较喜欢的部分" class="headerlink" title="我比较喜欢的部分"></a>我比较喜欢的部分</h2><p>我比较喜欢的不是“震”本身，而是它把游戏里的信息重新分了一层。</p>
-<p>以前我知道自己受伤，是因为看到了血条和红屏；现在有些时候我还没来得及转身，已经先知道身后发生了什么。它不像 VR 那样试图把整个世界包起来，只是在视觉和听觉之外再加一条很窄的通道。</p>
-<p>这条通道反而让一些小事变得明显：在黑暗里听见僵尸声音时，反馈和音效一起出现；从高处落下时，身体会先收到一个短促的提醒；血量长期危险时，心跳会变成一种不太能忽略的背景噪音。游戏还是那个游戏，但注意力的分配变了。</p>
+<h2 id="我比较喜欢的部分"><a href="#我比较喜欢的部分" class="headerlink" title="我比较喜欢的部分"></a>我比较喜欢的部分</h2><p>我喜欢的不是「震」本身，而是它把游戏里的信息重新分了一层。</p>
+<p>以前我知道自己受伤，是因为看见了血条和红屏；现在有些时候我还没来得及转身，已经先知道身后发生了什么。它不像 VR 那样试图把整个世界包起来，只是在视觉与听觉之外，多加了一条很窄的通道。</p>
+<p>这条通道让一些小事重新变得明显：在黑暗里听见僵尸声音时，反馈与音效同时出现；从高处落下时，身体会先收到一个短促的提醒；血量长期危险时，心跳会变成一种不太能忽略的背景噪音。游戏还是那个游戏，但注意力的分配变了。</p>
 <hr>
-<h2 id="这东西有没有用"><a href="#这东西有没有用" class="headerlink" title="这东西有没有用"></a>这东西有没有用</h2><p>如果“有用”的意思是提高效率，那它大概没有。它不能替你挖矿，也不能让你打末影龙变得更聪明。某种程度上，它甚至会让你在专心建筑的时候被突然的反馈吓一跳。</p>
-<p>但如果“有用”的意思是让一个熟悉的游戏重新产生一点陌生感，那我觉得有用。玩了很多年之后，Minecraft 的大多数事件都已经变成了条件反射。DGLab Craft 只是把这些条件反射拽回来一点，让你重新意识到：我刚刚真的在岩浆旁边走了一圈。</p>
-<p>当然，强度一定要从低开始，慢慢调。不要一上来就把参数拉满，也不要在不舒服的时候硬撑。这个 Mod 的意义不是制造疼痛，至少我做它的时候不是这么想的。</p>
+<h2 id="这东西有没有用"><a href="#这东西有没有用" class="headerlink" title="这东西有没有用"></a>这东西有没有用</h2><p>如果「有用」的意思是提高效率，那它大概没有。它不能替你挖矿，也不能让你打末影龙变得更聪明，甚至会在你专心建筑的时候被突然的反馈吓一跳。</p>
+<p>但如果「有用」的意思是让一个熟悉的游戏重新产生一点陌生感，那我觉得有用。玩了很多年之后，Minecraft 的大多数事件都已经变成了条件反射。DGLab Craft 只是把这些条件反射拽回来一点，让你重新意识到：我刚刚真的在岩浆旁边走了一圈。</p>
+<p>强度一定要从低开始，慢慢调；不要一上来就把参数拉满，也不要在不舒服的时候硬撑。这个 Mod 的意义不是制造疼痛——至少我做它的时候不是这么想的。</p>
 <hr>
-<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>咳咳，写到这里感觉又从一个很小的点扯远了。</p>
-<p>DGLab Craft 目前还是一个很具体、很私人、也不一定适合所有人的 Mod。它没有什么宏大的技术突破，就是把 Minecraft 的事件、一个本地 WebSocket，再加上一台设备接到了一起。可是当它第一次在我掉下悬崖的瞬间给出反馈时，我还是觉得：嗯，这个东西确实应该存在。</p>
-<p>代码和构建文件都放在 GitHub 上了。想试的话从低强度开始，连接遇到问题也欢迎直接提 issue。至于我之后还会不会继续加新的事件……先挖个坑，等下次更新再说。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>DGLab Craft 目前还是一个很具体、很私人、也不一定适合所有人的 Mod。它没有什么宏大的技术突破，只是把 Minecraft 的事件、一个本地 WebSocket，再加上一台设备接到了一起。</p>
+<p>可是当它第一次在我掉下悬崖的瞬间给出反馈时，我还是觉得：嗯，这个东西确实应该存在。代码和构建文件都放在 GitHub 上，想试的话从低强度开始，连接遇到问题也欢迎直接提 issue。</p>
 
 		</div>
 
@@ -851,7 +849,7 @@
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">DGLab Craft：给 Minecraft 加一点来自现实的反馈</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DGLab-Craft：给-Minecraft-加一点来自现实的反馈"><span class="nav-text">DGLab Craft：给 Minecraft 加一点来自现实的反馈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#它到底能做什么"><span class="nav-text">它到底能做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最开始只是想让掉血有点感觉"><span class="nav-text">最开始只是想让掉血有点感觉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最折磨人的部分是连接"><span class="nav-text">最折磨人的部分是连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我比较喜欢的部分"><span class="nav-text">我比较喜欢的部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这东西有没有用"><span class="nav-text">这东西有没有用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-text">写在最后</span></a></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DGLab-Craft：给-Minecraft-加一点来自现实的反馈"><span class="nav-text">DGLab Craft：给 Minecraft 加一点来自现实的反馈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#它是做什么的"><span class="nav-text">它是做什么的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最开始只是想让掉血有点感觉"><span class="nav-text">最开始只是想让掉血有点感觉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最折磨人的部分是连接"><span class="nav-text">最折磨人的部分是连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我比较喜欢的部分"><span class="nav-text">我比较喜欢的部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这东西有没有用"><span class="nav-text">这东西有没有用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-text">写在最后</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -879,11 +877,11 @@
 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共撰写了 5 篇文章
+                        共撰写了 6 篇文章
                     </span>
 
                         <span>
-                            共 6.0k 字
+                            共 8.2k 字
                         </span>
 
                 </p>
